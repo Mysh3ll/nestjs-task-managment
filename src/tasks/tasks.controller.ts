@@ -47,9 +47,9 @@ export class TasksController {
     //     @Body('status', TaskStatusValidationPipe) status: TaskStatus): Task {
     //     return this.tasksService.updateTaskStatusById(id, status);
     // }
-    //
-    // @Delete('/:id')
-    // deleteTaskById(@Param('id') id: string): void {
-    //     this.tasksService.deleteTaskById(id);
-    // }
+
+    @Delete('/:id')
+    deleteTaskById(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return this.tasksService.deleteTaskById(id);
+    }
 }

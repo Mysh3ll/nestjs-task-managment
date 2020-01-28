@@ -10,7 +10,9 @@ export class TasksService {
     constructor(
         @InjectRepository(TaskRepository)
         private taskRepository: TaskRepository,
-    ) {}
+    ) {
+    }
+
     // private tasks: Task[] = [];
     //
     // getAllTasks(): Task[] {
@@ -46,7 +48,7 @@ export class TasksService {
     }
 
     async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-        return  this.taskRepository.createTask(createTaskDto);
+        return this.taskRepository.createTask(createTaskDto);
     }
 
     // updateTaskStatusById(id: string, status: TaskStatus): Task {
@@ -55,9 +57,12 @@ export class TasksService {
     //
     //     return task;
     // }
-    //
-    // deleteTaskById(id: string): void {
-    //     const found = this.getTaskById(id);
-    //     this.tasks = this.tasks.filter(task => task.id !== found.id);
-    // }
+
+    async deleteTaskById(id: number): Promise<void> {
+        const result = await this.taskRepository.delete(id);
+
+        if (result.affected === 0) {
+            throw new NotFoundException(`Task with ${id} not found`)
+        }
+    }
 }
