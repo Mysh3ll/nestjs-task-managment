@@ -24,7 +24,7 @@ export class TasksController {
 
     @Get()
     @UsePipes(ValidationPipe)
-    getTasks(@Query() filterDto: GetTasksFilterDto) {
+    getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
         return this.tasksService.getTasks(filterDto);
     }
 
