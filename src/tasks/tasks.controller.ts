@@ -55,8 +55,10 @@ export class TasksController {
     @Patch('/:id/status')
     updateTaskStatusById(
         @Param('id', ParseIntPipe) id: number,
-        @Body('status', TaskStatusValidationPipe) status: TaskStatus): Promise<Task> {
-        return this.tasksService.updateTaskStatusById(id, status);
+        @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+        @GetUser() user: User,
+    ): Promise<Task> {
+        return this.tasksService.updateTaskStatusById(id, status, user);
     }
 
     @Delete('/:id')
